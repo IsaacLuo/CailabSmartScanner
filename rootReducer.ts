@@ -1,16 +1,19 @@
 // types
-import {IAction} from './types'
+import {IAction, IAppState} from './types'
 
 // redux
 import { combineReducers } from 'redux'
+import { SET_USER, SET_MESSAGE } from './actions';
 
 const INITIAL_STATE = {
   message: 'test message',
+  username: 'guest',
+  token: '',
 };
 
-const appReducer = (state = INITIAL_STATE, action:IAction) => {
+const appReducer = (state:IAppState = INITIAL_STATE, action:IAction) => {
   switch (action.type) {
-    case 'SET_APP_MESSAGE':
+    case SET_MESSAGE:
       return {
         ...state,
         message: action.data,
@@ -19,6 +22,12 @@ const appReducer = (state = INITIAL_STATE, action:IAction) => {
       return {
         ...state,
         message: 'hahah',
+      }
+    case SET_USER:
+      return {
+        ...state,
+        username: action.data.username,
+        token: action.data.token,
       }
     default:
       return state

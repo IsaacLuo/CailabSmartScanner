@@ -9,36 +9,59 @@ import saga from './saga'
 import createSagaMiddleware from 'redux-saga'
 import {composeWithDevTools} from 'remote-redux-devtools';
 import Dashboard from './components/Dashboard'
+import Login from './components/Login'
 
-/* eslint-disable no-underscore-dangle */
-// Development mode with Redux DevTools support enabled.
+import { NativeRouter, Route, Link } from "react-router-native";
+
+
 const sagaMiddleware = createSagaMiddleware();
-
-// const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const store = createStore(
-//     rootReducer,
-//     composeEnhancers(applyMiddleware(sagaMiddleware)),
-//   );
-
-
-// const store = createStore(
-//   rootReducer,
-//   composeWithDevTools(applyMiddleware(sagaMiddleware)),
-// );
-
 const composeEnhancers = composeWithDevTools({});
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
-/* eslint-enable */
+
 sagaMiddleware.run(saga);
 
+interface IProps {
 
-export default class App extends Component {
-  render() {
+}
+interface IState {
+  loading: boolean,
+}
+export default class App extends Component<IProps, IState> {
+  constructor(props:IProps) {
+    super(props);
+    this.state = {
+      loading: true,
+    }
+  }
+
+  public async componentWillMount() {
+    await Expo.Font.loadAsync({
+      'Roboto': require('native-base/Fonts/Roboto.ttf'),
+      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+      'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
+    });
+    this.setState({loading:false});
+  }
+
+  public render() {
+    if(this.state.loading) {
+      return <Expo.AppLoading />
+    }
     return (
       <Provider store={ store }>
-        <View style={styles.container}>
-          <Dashboard/>
+      <NativeRouter>
+        <View style={
+          {
+            height:'100%',
+            width:'100%',
+          }
+        }>
+          
+            <Route exact={true} path="/" component={Dashboard}/>
+            <Route exact={true} path="/login" component={Login}/>
+          
         </View>
+        </NativeRouter>
       </Provider>
     );
   }

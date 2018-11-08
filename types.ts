@@ -1,10 +1,14 @@
-interface IAction {
+export interface IAction {
   type: string,
   data: any,
 }
 
-interface IStoreState {
-  app: {
-    message: string,
-  }
+export interface IAppState {
+  message: string,
+  username: string,
+  token: string,
+}
+
+export interface IStoreState {
+  app: IAppState,
 }
