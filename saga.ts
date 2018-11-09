@@ -7,12 +7,12 @@ import watchTestLongTask from './pages/TestLongTask/sagas'
 import watchTaskManager from './pages/TaskManager/sagas'
 
 function* testSaga() {
-  console.debug({a:'b'})
-  yield put({type:'HAHAH'})
+  // console.debug({a:'b'})
+  // yield put({type:'HAHAH'})
 }
 
 export function* watchSystemMessage() {
-  yield takeLatest('SET_APP_MESSAGE', testSaga);
+  // yield takeLatest('SET_APP_MESSAGE', testSaga);
 }
 
 export default function* rootSaga() {

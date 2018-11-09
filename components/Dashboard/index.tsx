@@ -38,6 +38,15 @@ class Dashboard extends Component<IProps, any> {
               </Body>
             </CardItem>
           </Card>
+          <Card>
+            <CardItem>
+              <Body>
+                <Button block info>
+                  <Text>Assign Tubes</Text>
+                </Button>
+              </Body>
+            </CardItem>
+          </Card>
         </Content>
       </Container>
       

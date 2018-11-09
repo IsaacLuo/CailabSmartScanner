@@ -8,10 +8,13 @@ import {createStore, applyMiddleware, compose} from 'redux'
 import saga from './saga'
 import createSagaMiddleware from 'redux-saga'
 import {composeWithDevTools} from 'remote-redux-devtools';
-import Dashboard from './components/Dashboard'
+import Main from './screens/Main'
 import Login from './components/Login'
 
-import { NativeRouter, Route, Link } from "react-router-native";
+
+
+import { NativeRouter} from "react-router-native";
+import Route from './components/Route'
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -48,21 +51,11 @@ export default class App extends Component<IProps, IState> {
       return <Expo.AppLoading />
     }
     return (
-      <Provider store={ store }>
       <NativeRouter>
-        <View style={
-          {
-            height:'100%',
-            width:'100%',
-          }
-        }>
-          
-            <Route exact={true} path="/" component={Dashboard}/>
-            <Route exact={true} path="/login" component={Login}/>
-          
-        </View>
-        </NativeRouter>
+      <Provider store={ store }>
+        <Main/>
       </Provider>
+      </NativeRouter>
     );
   }
 }
