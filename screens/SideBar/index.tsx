@@ -50,7 +50,7 @@ class SideBar extends Component<IProps,any> {
           <List
             dataArray={datas}
             renderRow={data =>
-              <Link to='/AssignTubes' >
+              
               <ListItem
                 button
                 noBorder
@@ -67,7 +67,6 @@ class SideBar extends Component<IProps,any> {
                   </Text>
                 </Left>
               </ListItem>
-              </Link>
               }
           />
         </Content>

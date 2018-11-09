@@ -40,7 +40,10 @@ class Home extends React.Component<any,any> {
           <View style={{ marginBottom: 80 }}>
             <Button
               style={{ backgroundColor: "#6FAF98", alignSelf: "center" }}
-              onPress={this.props.onPressStart}
+              onPress={()=> {
+                console.log(this.props.navigation);
+                this.props.navigation.navigate("DrawerOpen")
+              }}
             >
               <Text>Lets Go!</Text>
             </Button>

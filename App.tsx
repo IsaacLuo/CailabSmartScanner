@@ -51,11 +51,11 @@ export default class App extends Component<IProps, IState> {
       return <Expo.AppLoading />
     }
     return (
-      <NativeRouter>
+      // <NativeRouter>
       <Provider store={ store }>
         <Main/>
       </Provider>
-      </NativeRouter>
+      // </NativeRouter>
     );
   }
 }

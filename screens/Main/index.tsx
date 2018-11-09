@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native';
+import { Root } from "native-base";
 
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
@@ -12,7 +13,7 @@ import {
 import {
   StyleProvider,
 } from 'native-base';
-import { StackNavigator, DrawerNavigator, createStackNavigator } from "react-navigation";
+import { StackNavigator, DrawerNavigator, createDrawerNavigator, createStackNavigator } from "react-navigation";
 import {NativeRouter, Route, Switch} from 'react-router-native';
 
 import Dashboard from '../../components/Dashboard';
@@ -21,12 +22,37 @@ import getTheme from '../../theme/components';
 import SideBar from '../SideBar'
 import Home from '../Home'
 
-import { Drawer } from 'native-base';
+// import { Drawer } from 'native-base';
 import { HIDE_DRAWER } from '../../actions';
 import AssignTubes from '../AssignTubes';
 
 
-Drawer.defaultProps.styles.mainOverlay.elevation = 0;
+// Drawer.defaultProps.styles.mainOverlay.elevation = 0;
+
+const Drawer = createDrawerNavigator(
+  {
+    Home: { screen: Home },
+    // AssignTubes: {screen: Home},
+  },
+  {
+    initialRouteName: "Home",
+    contentOptions: {
+      activeTintColor: "#e91e63"
+    },
+    contentComponent: (props:any) => <SideBar {...props} />
+  }
+);
+
+const AppNavigator = createStackNavigator(
+  {
+    Drawer: { screen: Drawer },
+    // AssignTubes: { screen: Home },
+  },
+  {
+    initialRouteName: "Drawer",
+    headerMode: "none"
+  }
+);
 
 interface IProps {
   path: string,
@@ -45,21 +71,16 @@ class Main extends Component<IProps, any> {
     }
 
   render() {
-    return <View style={{width:'100%', height:'100%'}}>
-    <Drawer
+    return <Root>
+    {/* <Drawer
             ref={(ref:any) => { this.drawer = ref; }}
             content={<SideBar/>}
             onClose={() => this.closeDrawer()}
             open={this.props.drawerVisible}
       >
-      <NativeRouter>
-        <Switch>
-          <Route exact={true} path='/' component={Home}/>
-          {/* <Route path='/AssginTubes' component={AssignTubes}/> */}
-        </Switch>
-      </NativeRouter>
-      </Drawer>
-    </View>
+      </Drawer> */}
+    <AppNavigator />
+    </Root>
   }
 }
 
