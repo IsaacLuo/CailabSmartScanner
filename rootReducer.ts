@@ -6,10 +6,7 @@ import { combineReducers } from 'redux'
 import {
   SET_USER,
   SET_MESSAGE,
-  SHOW_DRAWER,
-  HIDE_DRAWER,
   } from './actions';
-import { routeReducer } from './routeReducer';
 
 const INITIAL_STATE = {
   message: 'test message',
@@ -36,18 +33,6 @@ const appReducer = (state:IAppState = INITIAL_STATE, action:IAction):IAppState =
         username: action.data.username,
         token: action.data.token,
       }
-
-    case SHOW_DRAWER:
-      return {
-        ...state,
-        drawerVisible: true,
-      }
-
-    case HIDE_DRAWER:
-      return {
-        ...state,
-        drawerVisible: false,
-      }
     default:
       return state
   }
@@ -55,5 +40,4 @@ const appReducer = (state:IAppState = INITIAL_STATE, action:IAction):IAppState =
 
 export default combineReducers({
   app: appReducer,
-  route: routeReducer,
 });

@@ -55,9 +55,6 @@ const AppNavigator = createStackNavigator(
 );
 
 interface IProps {
-  path: string,
-  drawerVisible: boolean,
-  hideDrawer: () => void,
 }
 class Main extends Component<IProps, any> {
   constructor(props:IProps) {
@@ -67,7 +64,6 @@ class Main extends Component<IProps, any> {
 
   closeDrawer = () => {
       this.drawer._root.close();
-      this.props.hideDrawer();
     }
 
   render() {
@@ -87,13 +83,11 @@ class Main extends Component<IProps, any> {
 
 const mapStateToProps = (state:IStoreState) => {
   return {
-    path: state.route.path,
-    drawerVisible: state.app.drawerVisible,
+
   }
 };
 
 const mapDispatchToProps = (dispatch :Dispatch) => ({
-  hideDrawer: ()=>dispatch({type:HIDE_DRAWER})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

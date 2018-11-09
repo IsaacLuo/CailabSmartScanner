@@ -42,7 +42,7 @@ class Home extends React.Component<any,any> {
               style={{ backgroundColor: "#6FAF98", alignSelf: "center" }}
               onPress={()=> {
                 console.log(this.props.navigation);
-                this.props.navigation.navigate("DrawerOpen")
+                this.props.navigation.openDrawer();
               }}
             >
               <Text>Lets Go!</Text>
@@ -59,7 +59,7 @@ const mapStateToProps = (state:IStoreState) => ({
 });
 
 const mapDispatchToProps = (dispatch :Dispatch) => ({
-  onPressStart: () => dispatch({type:'SHOW_DRAWER'}),
+  
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
