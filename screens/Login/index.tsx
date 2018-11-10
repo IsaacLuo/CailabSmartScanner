@@ -14,9 +14,19 @@ const launchscreenLogo = require("../../assets/title.png");
 
 interface IProps {
   onPressStart: ()=>void,
+  submitUserBarcode: (barcode:string)=>void,
+}
+interface IState {
+  userBarcode: string,
 }
 
-class Home extends React.Component<any,any> {
+class Home extends React.Component<IProps,IState> {
+  constructor(props:IProps) {
+    super(props);
+    this.state = {
+      userBarcode: '',
+    }
+  }
   render() {
     return (
       <Container>
@@ -26,7 +36,11 @@ class Home extends React.Component<any,any> {
           <Form>
             <Item inlineLabel>
               <Label>User Barcode</Label>
-              <Input />
+              <Input onChangeText={(userBarcode) => this.setState({userBarcode})}
+                value={this.state.userBarcode}
+                autoFocus={true}
+                onSubmitEditing={()=>{this.props.submitUserBarcode(this.state.userBarcode)}}
+                />
             </Item>
           </Form>
           </View>
@@ -51,7 +65,7 @@ const mapStateToProps = (state:IStoreState) => ({
 });
 
 const mapDispatchToProps = (dispatch :Dispatch) => ({
-
+  submitUserBarcode: (barcode:string) => dispatch({type:'SUBMIT_USER_BARCODE', data:barcode}),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

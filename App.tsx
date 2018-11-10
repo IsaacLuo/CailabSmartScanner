@@ -1,27 +1,49 @@
+
+// types
+import { IStoreState } from './types';
+import { NavigationContainer } from 'react-navigation';
+
+// react
 import * as React from 'react';
 import { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import { Provider } from 'react-redux';
+// redux
 import rootReducer from './rootReducer';
 import {createStore, applyMiddleware, compose} from 'redux'
+import {composeWithDevTools} from 'remote-redux-devtools';
+import { Provider, connect } from 'react-redux';
+
+// redux-saga
 import saga from './saga'
 import createSagaMiddleware from 'redux-saga'
-import {composeWithDevTools} from 'remote-redux-devtools';
-import Main from './screens/Main'
-import Login from './components/Login'
+
+// navigation
+import AppNavigator from './navigator';
+
+// redux-navigation
+import {
+  createReactNavigationReduxMiddleware,
+  reduxifyNavigator,
+} from 'react-navigation-redux-helpers';
 
 
-
-import { NativeRouter} from "react-router-native";
-import Route from './components/Route'
-
-
+// middle wares: saga and nav
 const sagaMiddleware = createSagaMiddleware();
+const navMiddleware = createReactNavigationReduxMiddleware(
+  "Home",
+  (state:IStoreState) => state.nav,
+);
+
 const composeEnhancers = composeWithDevTools({});
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware, navMiddleware)));
 
 sagaMiddleware.run(saga);
+
+// navigation root component
+const navigationComponent = reduxifyNavigator(AppNavigator, "Home");
+const mapStateToProps = (state:IStoreState) => ({state:state.nav});
+const AppWithNavigationState = connect(mapStateToProps)(navigationComponent);
 
 interface IProps {
 
@@ -53,7 +75,8 @@ export default class App extends Component<IProps, IState> {
     return (
       
       <Provider store={ store }>
-        <Main/>
+        {/* <Main/> */}
+        <AppWithNavigationState/>
       </Provider>
       
     );

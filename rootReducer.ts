@@ -9,6 +9,7 @@ import {
   } from './actions';
 
 import basketReducer from './basketReducer'
+import navigateReducer from './navigateReducer'
 
 const INITIAL_STATE = {
   message: 'test message',
@@ -43,4 +44,5 @@ const appReducer = (state:IAppState = INITIAL_STATE, action:IAction):IAppState =
 export default combineReducers({
   app: appReducer,
   basket: basketReducer,
+  nav: navigateReducer,
 });

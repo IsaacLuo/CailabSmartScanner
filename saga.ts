@@ -5,14 +5,27 @@ import { IAction } from './types';
 import watchMergeLightCyclerReport from './pages/MergeLightCyclerReport/sagas'
 import watchTestLongTask from './pages/TestLongTask/sagas'
 import watchTaskManager from './pages/TaskManager/sagas'
+import { SET_USER } from './actions';
 
-function* testSaga() {
-  // console.debug({a:'b'})
-  // yield put({type:'HAHAH'})
+import { NavigationActions } from 'react-navigation'
+
+const redirectRoute = (name:string) => NavigationActions.reset({
+  index: 0,
+  actions: [
+    NavigationActions.navigate({ routeName: name })
+  ]
+})
+
+function* submitUserBarcode(action:IAction) {
+  // send user barcode to backend
+  // set redux
+  yield put({type:SET_USER, data:{username:'guest', token:'guest'}});
+  yield put(NavigationActions.navigate({ routeName: 'Dashboard' }))
 }
 
 export function* watchSystemMessage() {
   // yield takeLatest('SET_APP_MESSAGE', testSaga);
+  yield takeLatest('SUBMIT_USER_BARCODE', submitUserBarcode);
 }
 
 export default function* rootSaga() {

@@ -14,7 +14,6 @@ import {
   StyleProvider,
 } from 'native-base';
 import { StackNavigator, DrawerNavigator, createDrawerNavigator, createStackNavigator } from "react-navigation";
-import {NativeRouter, Route, Switch} from 'react-router-native';
 
 import Dashboard from '../../components/Dashboard';
 import variables from '../../theme/variables/commonColor';
@@ -29,32 +28,7 @@ import styles from './styles'
 
 // Drawer.defaultProps.styles.mainOverlay.elevation = 0;
 
-const Drawer = createDrawerNavigator(
-  {
-    Home: { screen: Home },
-    AssignTubes: {screen: AssignTubes},
-    Login: {screen: Login},
-  },
-  {
-    initialRouteName: "Home",
-    contentOptions: {
-      activeTintColor: "#e91e63"
-    },
-    contentComponent: (props:any) => <SideBar {...props} />
-  }
-);
-
-const AppNavigator = createStackNavigator(
-  {
-    Drawer: { screen: Drawer },
-    AssignTubes: {screen: AssignTubes},
-    Login: {screen: Login},
-  },
-  {
-    initialRouteName: "Drawer",
-    headerMode: "none"
-  }
-);
+import AppNavigator from '../../navigator'
 
 interface IProps {
 }
@@ -62,11 +36,6 @@ class Main extends Component<IProps, any> {
   constructor(props:IProps) {
     super(props);
   }
-  private drawer:any;
-
-  closeDrawer = () => {
-      this.drawer._root.close();
-    }
 
   render() {
     return <View style={styles.container}>
@@ -76,11 +45,9 @@ class Main extends Component<IProps, any> {
 }
 
 
-const mapStateToProps = (state:IStoreState) => {
-  return {
-
-  }
-};
+const mapStateToProps = (state:IStoreState) => ({
+  state: state.nav,
+});
 
 const mapDispatchToProps = (dispatch :Dispatch) => ({
 })

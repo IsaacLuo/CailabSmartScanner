@@ -15,6 +15,7 @@ export interface IAppState {
 export interface IStoreState {
   app: IAppState,
   route: IRouteState,
+  nav: any,
 }
 
 export interface IRouteState {
