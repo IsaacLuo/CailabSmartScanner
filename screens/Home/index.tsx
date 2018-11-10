@@ -3,7 +3,7 @@ import { ImageBackground, View, StatusBar } from "react-native";
 import { Container, Button, H3, Text } from "native-base";
 import {Link} from 'react-router-native';
 
-import {IStoreState} from '../../types'
+import {IStoreState, IReactNavigatingProps} from '../../types'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
@@ -12,11 +12,12 @@ import styles from "./styles";
 const launchscreenBg = require("../../assets/mib.jpg");
 const launchscreenLogo = require("../../assets/title.png");
 
-interface IProps {
+interface IProps extends IReactNavigatingProps {
+  token: string,
   onPressStart: ()=>void,
 }
 
-class Home extends React.Component<any,any> {
+class Home extends React.Component<IProps,any> {
   render() {
     return (
       <Container>
@@ -41,8 +42,12 @@ class Home extends React.Component<any,any> {
             <Button
               style={{ backgroundColor: "#6FAF98", alignSelf: "center" }}
               onPress={()=> {
-                console.log(this.props.navigation);
-                this.props.navigation.openDrawer();
+                if (this.props.token) {
+                  console.log('token=', this.props.token);
+                  this.props.navigation.openDrawer();
+                } else {
+                  this.props.navigation.navigate('Login');
+                }
               }}
             >
               <Text>Lets Go!</Text>
@@ -56,10 +61,11 @@ class Home extends React.Component<any,any> {
 }
 
 const mapStateToProps = (state:IStoreState) => ({
+  token: state.app.token,
 });
 
 const mapDispatchToProps = (dispatch :Dispatch) => ({
-  
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

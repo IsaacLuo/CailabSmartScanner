@@ -21,10 +21,10 @@ import variables from '../../theme/variables/commonColor';
 import getTheme from '../../theme/components';
 import SideBar from '../SideBar'
 import Home from '../Home'
-
-// import { Drawer } from 'native-base';
-import { HIDE_DRAWER } from '../../actions';
 import AssignTubes from '../AssignTubes';
+import Login from '../Login';
+
+import styles from './styles'
 
 
 // Drawer.defaultProps.styles.mainOverlay.elevation = 0;
@@ -32,7 +32,8 @@ import AssignTubes from '../AssignTubes';
 const Drawer = createDrawerNavigator(
   {
     Home: { screen: Home },
-    // AssignTubes: {screen: Home},
+    AssignTubes: {screen: AssignTubes},
+    Login: {screen: Login},
   },
   {
     initialRouteName: "Home",
@@ -46,7 +47,8 @@ const Drawer = createDrawerNavigator(
 const AppNavigator = createStackNavigator(
   {
     Drawer: { screen: Drawer },
-    // AssignTubes: { screen: Home },
+    AssignTubes: {screen: AssignTubes},
+    Login: {screen: Login},
   },
   {
     initialRouteName: "Drawer",
@@ -67,16 +69,9 @@ class Main extends Component<IProps, any> {
     }
 
   render() {
-    return <Root>
-    {/* <Drawer
-            ref={(ref:any) => { this.drawer = ref; }}
-            content={<SideBar/>}
-            onClose={() => this.closeDrawer()}
-            open={this.props.drawerVisible}
-      >
-      </Drawer> */}
+    return <View style={styles.container}>
     <AppNavigator />
-    </Root>
+    </View>
   }
 }
 

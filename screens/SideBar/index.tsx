@@ -14,6 +14,7 @@ import {
 } from "native-base";
 import {Link} from 'react-router-native'
 import styles from "./style";
+import { IReactNavigatingProps } from '../../types';
 
 const drawerCover = require("../../assets/sidbar-title.jpg");
 const drawerImage = require("../../assets/title.png");
@@ -26,7 +27,7 @@ const datas = [
   },
 ];
 
-interface IProps {
+interface IProps extends IReactNavigatingProps {
 
 }
 
@@ -54,7 +55,7 @@ class SideBar extends Component<IProps,any> {
               <ListItem
                 button
                 noBorder
-                onPress={() => {console.log('ttttttt')}}
+                onPress={() => {this.props.navigation.navigate('AssignTubes')}}
               >
                 <Left>
                   <Icon

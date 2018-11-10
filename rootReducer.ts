@@ -8,6 +8,8 @@ import {
   SET_MESSAGE,
   } from './actions';
 
+import basketReducer from './basketReducer'
+
 const INITIAL_STATE = {
   message: 'test message',
   username: 'guest',
@@ -40,4 +42,5 @@ const appReducer = (state:IAppState = INITIAL_STATE, action:IAction):IAppState =
 
 export default combineReducers({
   app: appReducer,
+  basket: basketReducer,
 });
