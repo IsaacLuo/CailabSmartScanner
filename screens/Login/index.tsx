@@ -1,3 +1,5 @@
+import conf from '../../config'
+
 import * as React from "react";
 import { ImageBackground, View, StatusBar } from "react-native";
 import { Container, Button, H3, Text, Form, Item, Label, Input } from "native-base";
@@ -8,6 +10,7 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
 import styles from "./styles";
+import axios from 'axios';
 
 const launchscreenBg = require("../../assets/mib.jpg");
 const launchscreenLogo = require("../../assets/title.png");
@@ -26,6 +29,20 @@ class Home extends React.Component<IProps,IState> {
     this.state = {
       userBarcode: '',
     }
+
+    const testCall = async () => {
+    try {
+      console.log('getMyPickList')
+    const res = await axios.get(conf.backendServer+'/test/');
+    console.log(res.data);
+    } catch (err) {
+      console.log('err');
+      console.log(err);
+    }
+  };
+  testCall();
+
+
   }
   render() {
     return (

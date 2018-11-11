@@ -18,6 +18,7 @@
     "@types/react-redux": "^6.0.9",
     "@types/react-router-native": "^4.2.3",
     "@types/remote-redux-devtools": "^0.5.3",
+    "axios": "^0.18.0",
     "color": "^3.1.0",
     "expo": "^31.0.2",
     "native-base": "^2.8.1",

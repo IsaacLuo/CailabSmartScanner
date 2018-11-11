@@ -25,7 +25,7 @@ const Drawer = createDrawerNavigator(
     Home: { screen: Home },
     AssignTubes: {screen: AssignTubes},
     Login: {screen: Login},
-    Dashboard: {screen: Dashboard},
+    Dashboard: {screen: SideBar},
   },
   {
     initialRouteName: "Home",
@@ -42,7 +42,7 @@ const AppNavigator = createStackNavigator(
     Drawer: { screen: Drawer },
     AssignTubes: {screen: AssignTubes},
     Login: {screen: Login},
-    Dashboard: {screen: Dashboard},
+    Dashboard: {screen: SideBar},
   },
   {
     initialRouteName: "Drawer",

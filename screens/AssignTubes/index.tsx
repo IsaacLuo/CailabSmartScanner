@@ -1,3 +1,8 @@
+// types
+import { IStoreState, IReactNavigatingProps } from '../../types';
+import {Dispatch} from 'redux';
+import {connect} from 'react-redux';
+
 import * as React from 'react';
 import { Component } from "react";
 import { Image } from "react-native";
@@ -18,7 +23,7 @@ import {
   Picker,
 } from "native-base";
 import styles from "./style";
-import { IReactNavigatingProps } from '../../types';
+
 
 const drawerCover = require("../../assets/sidbar-title.jpg");
 const drawerImage = require("../../assets/title.png");
@@ -33,6 +38,7 @@ const datas = [
 
 interface IProps extends IReactNavigatingProps {
   selectedBasket:any,
+  dispatchGetMyBaskets: ()=>void,
 }
 interface IState {
   loading: boolean,
@@ -46,6 +52,7 @@ class AssignTubes extends Component<IProps,IState> {
       loading: true,
       selected: 'key0',
     };
+    this.props.dispatchGetMyBaskets();
   }
 
   render() {
@@ -98,4 +105,12 @@ class AssignTubes extends Component<IProps,IState> {
     }
 }
 
-export default AssignTubes;
+const mapStateToProps = (state:IStoreState) => ({
+  token: state.app.token,
+});
+
+const mapDispatchToProps = (dispatch :Dispatch) => ({
+  dispatchGetMyBaskets: ()=>dispatch({type:'GET_MY_PICKLIST'})
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AssignTubes);

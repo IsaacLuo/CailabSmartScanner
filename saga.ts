@@ -9,6 +9,8 @@ import { SET_USER } from './actions';
 
 import { NavigationActions } from 'react-navigation'
 
+import pickListSaga from './pickListSaga'
+
 const redirectRoute = (name:string) => NavigationActions.reset({
   index: 0,
   actions: [
@@ -31,5 +33,6 @@ export function* watchSystemMessage() {
 export default function* rootSaga() {
   yield all([
     fork(watchSystemMessage),
+    fork(pickListSaga),
   ]);
 }
