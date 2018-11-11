@@ -11,3 +11,5 @@ export const HIDE_DRAWER = 'HIDE_DRAWER';
 
 
 export const SET_CURRENT_BASKET = 'SET_CURRENT_BASKET';
+
+export const SET_LOGIN_MESSAGE = 'SET_LOGIN_MESSAGE';
