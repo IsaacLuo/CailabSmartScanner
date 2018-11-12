@@ -1,6 +1,21 @@
+
+// types
+import {
+  IStoreState,
+  IReactNavigatingProps,
+} from '../../types';
+
+// react
 import * as React from 'react';
 import { Component } from "react";
 import { Image } from "react-native";
+
+// redux
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+
+
+// components
 import {
   Content,
   Text,
@@ -12,9 +27,9 @@ import {
   Right,
   Badge
 } from "native-base";
-import {Link} from 'react-router-native'
+
+// page essentials
 import styles from "./style";
-import { IReactNavigatingProps } from '../../types';
 
 const drawerCover = require("../../assets/sidbar-title.jpg");
 const drawerImage = require("../../assets/title.png");
@@ -28,7 +43,7 @@ const datas = [
 ];
 
 interface IProps extends IReactNavigatingProps {
-
+  username: string,
 }
 
 class SideBar extends Component<IProps,any> {
@@ -47,7 +62,7 @@ class SideBar extends Component<IProps,any> {
         >
           <Image source={drawerCover} style={styles.drawerCover} />
           <Image square style={styles.drawerImage} source={drawerImage} />
-
+          <Text>{this.props.username}</Text>
           <List
             dataArray={datas}
             renderRow={data =>
@@ -74,5 +89,11 @@ class SideBar extends Component<IProps,any> {
       </Container>
   }
 }
+const mapStateToProps = (state:IStoreState) => ({
+  username: state.app.username,
+});
 
-export default SideBar;
+const mapDispatchToProps = (dispatch :Dispatch) => ({
+})
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
+

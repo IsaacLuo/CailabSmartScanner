@@ -11,7 +11,7 @@ function* getMyPickList(action:IAction) {
   // yield put(NavigationActions.navigate({ routeName: 'Dashboard' }))
   try {
     console.log('getMyPickList')
-  const res = yield call(axios.get, conf.backendServer+'/api/pickLists/');
+  const res = yield call(axios.get, conf.serverURL+'/api/pickLists/');
   console.log(res.data);
   } catch (err) {
     console.log(err.response.data);
