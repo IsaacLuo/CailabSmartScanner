@@ -1,5 +1,6 @@
 {
   "name": "empty-typescript-template",
+  "version": "0.1.1115",
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
