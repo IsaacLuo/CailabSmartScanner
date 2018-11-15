@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import * as React from 'react';
 import { Component } from "react";
-import { Image } from "react-native";
+import { Image, Platform, StyleSheet } from "react-native";
 import {
   Container,
   Header,
@@ -25,6 +25,8 @@ import {
 } from "native-base";
 import { GET_MY_PICKLISTS } from '../../reducers/basket/actions';
 import { SET_CURRENT_PICKLIST } from './actions';
+
+import style from './style'
 
 
 const drawerCover = require("../../assets/sidbar-title.jpg");
@@ -85,7 +87,7 @@ class AssignTubes extends Component<IProps,IState> {
     )
     return(
     <Container>
-      <Header>
+      <Header style={style.header}>
         <Left>
           <Button
             transparent

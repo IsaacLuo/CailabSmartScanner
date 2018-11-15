@@ -1,10 +1,13 @@
+import { Constants } from 'expo';
+const statusBarHeight = Constants ? Constants.statusBarHeight:0;
+
 const React = require("react-native");
 const { Platform, Dimensions, StyleSheet } = React;
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 
-export default {
+export default StyleSheet.create({
   drawerCover: {
     alignSelf: "stretch",
     height: deviceHeight / 3.5,
@@ -31,4 +34,7 @@ export default {
     textAlign: "center",
     marginTop: Platform.OS === "android" ? -3 : undefined
   },
-};
+  header: {
+    paddingTop: Platform.OS === "android" ? statusBarHeight : undefined
+  }
+});
