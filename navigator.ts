@@ -22,6 +22,7 @@ import Dashboard from './screens/Dashboard';
 
 const Drawer = createDrawerNavigator(
   {
+    // Home: { screen: AssignTubes },
     Home: { screen: Home },
     AssignTubes: {screen: AssignTubes},
     Login: {screen: Login},
@@ -38,6 +39,7 @@ const Drawer = createDrawerNavigator(
 
 const AppNavigator = createStackNavigator(
   {
+    
     Home: { screen: Home },
     Drawer: { screen: Drawer },
     AssignTubes: {screen: AssignTubes},

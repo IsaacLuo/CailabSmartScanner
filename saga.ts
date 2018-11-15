@@ -1,10 +1,5 @@
 import {call, all, fork, put, take, takeLatest, takeEvery} from 'redux-saga/effects'
-import {delay} from 'redux-saga'
-import {Notification} from 'element-react'
 import { IAction } from './types';
-import watchMergeLightCyclerReport from './pages/MergeLightCyclerReport/sagas'
-import watchTestLongTask from './pages/TestLongTask/sagas'
-import watchTaskManager from './pages/TaskManager/sagas'
 import conf from './config'
 import {
   SET_USER,
@@ -13,7 +8,8 @@ import {
 
 import { NavigationActions } from 'react-navigation'
 
-import pickListSaga from './pickListSaga'
+import basketSaga from './reducers/basket/saga'
+import assignTubes from './screens/AssignTubes/saga'
 import axios from 'axios'
 
 const redirectRoute = (name:string) => NavigationActions.reset({
@@ -48,6 +44,7 @@ export function* watchSystemMessage() {
 export default function* rootSaga() {
   yield all([
     fork(watchSystemMessage),
-    fork(pickListSaga),
+    fork(basketSaga),
+    fork(assignTubes),
   ]);
 }

@@ -26,7 +26,10 @@ import {
   createReactNavigationReduxMiddleware,
   reduxifyNavigator,
 } from 'react-navigation-redux-helpers';
-
+import AssignTubes from './screens/AssignTubes';
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web and AsyncStorage for react-native
+import { PersistGate } from 'redux-persist/integration/react'
 
 // middle wares: saga and nav
 const sagaMiddleware = createSagaMiddleware();
@@ -36,7 +39,17 @@ const navMiddleware = createReactNavigationReduxMiddleware(
 );
 
 const composeEnhancers = composeWithDevTools({});
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware, navMiddleware)));
+// const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware, navMiddleware)));
+
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(sagaMiddleware, navMiddleware)));
+let persistor = persistStore(store);
+// persistor.purge();
 
 sagaMiddleware.run(saga);
 
@@ -73,10 +86,10 @@ export default class App extends Component<IProps, IState> {
       return <Expo.AppLoading />
     }
     return (
-      
       <Provider store={ store }>
-        {/* <Main/> */}
-        <AppWithNavigationState/>
+        <PersistGate loading={null} persistor={persistor}>
+          <AppWithNavigationState/>
+        </PersistGate>
       </Provider>
       
     );

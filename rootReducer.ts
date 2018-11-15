@@ -8,8 +8,9 @@ import {
   SET_MESSAGE,
   } from './actions';
 
-import basketReducer from './basketReducer'
+import basketReducer from './reducers/basket/reducer'
 import navigateReducer from './navigateReducer'
+import assignTubesReducer from './screens/AssignTubes/reducer'
 
 const INITIAL_STATE = {
   message: 'test message',
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
 };
 
 const appReducer = (state:IAppState = INITIAL_STATE, action:IAction):IAppState =>  {
+  console.debug('Action = ', action.type);
   switch (action.type) {
     case SET_MESSAGE:
       return {
@@ -45,4 +47,5 @@ export default combineReducers({
   app: appReducer,
   basket: basketReducer,
   nav: navigateReducer,
+  assignTubes: assignTubesReducer,
 });

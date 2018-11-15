@@ -1,0 +1,11 @@
+/**
+ * AssignTubes Actions
+ */
+
+const SCREEN_APPENDIX = '_AT'
+
+export const  SET_CURRENT_PICKLIST = 'SET_CURRENT_PICKLIST' + SCREEN_APPENDIX;
+
+export const SET_PARTS = 'SET_PARTS' + SCREEN_APPENDIX;
+
+export const SET_LOADING_PARTS = 'SET_LOADING_PARTS' + SCREEN_APPENDIX;

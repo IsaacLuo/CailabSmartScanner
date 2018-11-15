@@ -35,8 +35,14 @@ const drawerCover = require("../../assets/sidbar-title.jpg");
 const drawerImage = require("../../assets/title.png");
 const datas = [
   {
+    name: "Home",
+    routeName: "Home",
+    icon: "navigate",
+    bg: "#BE6F50"
+  },
+  {
     name: "Assgin Tubes",
-    route: "/assignTubes",
+    routeName: "AssignTubes",
     icon: "navigate",
     bg: "#BE6F50"
   },
@@ -66,11 +72,10 @@ class SideBar extends Component<IProps,any> {
           <List
             dataArray={datas}
             renderRow={data =>
-              
               <ListItem
                 button
                 noBorder
-                onPress={() => {this.props.navigation.navigate('AssignTubes')}}
+                onPress={() => {this.props.navigation.navigate(data.routeName)}}
               >
                 <Left>
                   <Icon

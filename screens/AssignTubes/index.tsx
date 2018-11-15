@@ -1,5 +1,5 @@
 // types
-import { IStoreState, IReactNavigatingProps } from '../../types';
+import { IStoreState, IReactNavigatingProps, IBasket, IPart } from '../../types';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 
@@ -21,8 +21,10 @@ import {
   CardItem,
   Form,
   Picker,
+  Spinner,
 } from "native-base";
-import styles from "./style";
+import { GET_MY_PICKLISTS } from '../../reducers/basket/actions';
+import { SET_CURRENT_PICKLIST } from './actions';
 
 
 const drawerCover = require("../../assets/sidbar-title.jpg");
@@ -38,10 +40,15 @@ const datas = [
 
 interface IProps extends IReactNavigatingProps {
   selectedBasket:any,
+  pickLists: IBasket[],
+  defaultPickListId: string,
+  loadingPicklists: boolean,
+  loadingParts: boolean,
+  parts: IPart[],
   dispatchGetMyBaskets: ()=>void,
+  dispatchSetCurrentBasket: (id:string)=>void,
 }
 interface IState {
-  loading: boolean,
   selected: string,
 }
 
@@ -49,68 +56,91 @@ class AssignTubes extends Component<IProps,IState> {
   constructor(props:IProps) {
     super(props);
     this.state = {
-      loading: true,
-      selected: 'key0',
+      selected: props.defaultPickListId,
     };
     this.props.dispatchGetMyBaskets();
   }
 
+  componentWillReceiveProps(props:IProps) {
+    // this.setState({selected: props.defaultPickListId});
+  }
+
   render() {
-    return(
-    <Container>
-        <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={this.props.navigation.openDrawer}
-            >
-              <Icon name="ios-menu" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Header</Title>
-          </Body>
-          <Right />
-        </Header>
-    <Content>
-            <Picker
-              note={false}
-              mode="dropdown"
-              style={{ width: '100%' }}
-              selectedValue={this.state.selected}
-              onValueChange={this.onValueChange.bind(this)}
-            >
-              <Picker.Item label="Wallet" value="key0" />
-              <Picker.Item label="ATM Card" value="key1" />
-              <Picker.Item label="Debit Card" value="key2" />
-              <Picker.Item label="Credit Card" value="key3" />
-              <Picker.Item label="Net Banking" value="key4" />
-            </Picker>
-          
-      <Card>
+    const pickerItems = this.props.pickLists.map(item => <Picker.Item
+      label={item.name}
+      value={item._id}
+      key={item._id}
+    />)
+
+    const partsList = this.props.parts.map((item:IPart) => 
+    <Card key={item._id}>
         <CardItem>
-          <Icon active name="logo-googleplus" />
-          <Text>Google Plus</Text>
+          <Icon name="md-add" />
+          <Text>{item.personalName}</Text>
           <Right>
-            <Icon name="arrow-forward" />
+            <Icon name="ios-barcode" />
           </Right>
          </CardItem>
        </Card>
-    </Content>
-  </Container>
+    )
+    return(
+    <Container>
+      <Header>
+        <Left>
+          <Button
+            transparent
+            onPress={this.props.navigation.openDrawer}
+          >
+            <Icon name="ios-menu" />
+          </Button>
+        </Left>
+        <Body>
+          <Title>Header</Title>
+        </Body>
+        <Right />
+      </Header>
+      {this.props.loadingPicklists ? 
+      <Content>
+        <Spinner/>
+      </Content>
+      :    
+      <Content>
+        <Picker
+          note={false}
+          mode="dropdown"
+          style={{ width: '100%' }}
+          selectedValue={this.state.selected}
+          onValueChange={this.onValueChange.bind(this)}
+        >
+          {pickerItems}
+        </Picker>
+        {this.props.loadingParts ? <Spinner/> : partsList}
+        {!this.props.loadingParts && partsList.length === 0 && 
+        <Text>basket is empty</Text>
+        }
+      </Content>
+      }
+    </Container>
     )}
 
     private onValueChange = (value:string) => {
       this.setState({selected:value});
+      this.props.dispatchSetCurrentBasket(value);
     }
 }
 
 const mapStateToProps = (state:IStoreState) => ({
   token: state.app.token,
+  pickLists: state.basket.pickLists,
+  defaultPickListId: state.basket.defaultPickListId,
+  loadingPicklists: state.basket.loadingGetMyPicklists,
+  loadingParts: state.assignTubes.loadingParts,
+  parts: state.assignTubes.parts,
 });
 
 const mapDispatchToProps = (dispatch :Dispatch) => ({
-  dispatchGetMyBaskets: ()=>dispatch({type:'GET_MY_PICKLIST'})
+  dispatchGetMyBaskets: ()=>dispatch({type:GET_MY_PICKLISTS}),
+  dispatchSetCurrentBasket: (id:string)=>dispatch({type:SET_CURRENT_PICKLIST, data:id}),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssignTubes);

@@ -16,6 +16,8 @@ export interface IStoreState {
   app: IAppState,
   route: IRouteState,
   nav: any,
+  basket: IBasketState,
+  assignTubes: IAssignTubesState,
 }
 
 export interface IRouteState {
@@ -27,7 +29,28 @@ export interface IReactNavigatingProps {
 }
 
 export interface IBasketState {
-  allBaskets: any[],
-  currentBasketId: string,
-  currentBasketContent: any[],
+  pickLists: IBasket[],
+  defaultPickListId: string,
+  loadingGetMyPicklists: boolean,
+}
+
+export interface IBasket {
+  _id: string,
+  createdAt: Date,
+  updatedAt: Date,
+  name: string,
+  partsCount: number,
+  parts: IPart[],
+}
+
+export interface IAssignTubesState {
+  parts: IPart[],
+  loadingParts: boolean,
+}
+
+export interface IPart {
+  _id: string,
+  labName: string,
+  personalName: string,
+  barcodes?: string[],
 }

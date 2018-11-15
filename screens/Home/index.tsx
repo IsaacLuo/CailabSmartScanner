@@ -7,6 +7,7 @@ import {IStoreState, IReactNavigatingProps} from '../../types'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
+
 import styles from "./styles";
 
 const launchscreenBg = require("../../assets/mib.jpg");
