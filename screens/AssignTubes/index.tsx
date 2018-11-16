@@ -27,6 +27,8 @@ import { GET_MY_PICKLISTS } from '../../reducers/basket/actions';
 import { SET_CURRENT_PICKLIST } from './actions';
 
 import style from './style'
+import RNComponent from '../../components/RNComponent';
+import DrawerBaseComponent from '../../components/DrawerBaseComponent';
 
 
 const drawerCover = require("../../assets/sidbar-title.jpg");
@@ -54,17 +56,13 @@ interface IState {
   selected: string,
 }
 
-class AssignTubes extends Component<IProps,IState> {
+class AssignTubes extends DrawerBaseComponent<IProps,IState> {
   constructor(props:IProps) {
     super(props);
     this.state = {
       selected: props.defaultPickListId,
     };
     this.props.dispatchGetMyBaskets();
-  }
-
-  componentWillReceiveProps(props:IProps) {
-    // this.setState({selected: props.defaultPickListId});
   }
 
   render() {
@@ -125,11 +123,18 @@ class AssignTubes extends Component<IProps,IState> {
     </Container>
     )}
 
-    private onValueChange = (value:string) => {
-      this.setState({selected:value});
-      this.props.dispatchSetCurrentBasket(value);
-    }
+  private onValueChange = (value:string) => {
+    this.setState({selected:value});
+    this.props.dispatchSetCurrentBasket(value);
+  }
+  protected onBackButtonPressAndroid () {
+    console.log(this.props);
+    // this.props.navigation.goBack();
+    return true;
+  }
 }
+
+
 
 const mapStateToProps = (state:IStoreState) => ({
   token: state.app.token,

@@ -10,15 +10,16 @@ import { Dispatch } from 'redux'
 import {
   StyleProvider,
 } from 'native-base';
-import { StackNavigator, DrawerNavigator, createDrawerNavigator, createStackNavigator } from "react-navigation";
+import {
+createDrawerNavigator, 
+createStackNavigator,
+} from "react-navigation";
 import {NativeRouter, Route, Switch} from 'react-router-native';
 
 import Home from './screens/Home'
 import AssignTubes from './screens/AssignTubes';
 import Login from './screens/Login';
 import SideBar from './screens/SideBar';
-import Dashboard from './screens/Dashboard';
-
 
 const Drawer = createDrawerNavigator(
   {
@@ -33,18 +34,19 @@ const Drawer = createDrawerNavigator(
     contentOptions: {
       activeTintColor: "#e91e63"
     },
-    contentComponent: (props:any) => <SideBar {...props} />
+    contentComponent: SideBar,
   }
 );
 
 const AppNavigator = createStackNavigator(
   {
-    
-    Home: { screen: Home },
     Drawer: { screen: Drawer },
-    AssignTubes: {screen: AssignTubes},
-    Login: {screen: Login},
-    Dashboard: {screen: SideBar},
+    // Home: { screen: Home },
+    // AssignTubes: {screen: AssignTubes},
+    
+    // Dashboard: {screen: SideBar},
+    // Login: {screen: Login},
+
   },
   {
     initialRouteName: "Drawer",

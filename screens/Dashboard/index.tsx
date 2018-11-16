@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 
 import styles from "./styles";
+import DrawerBaseComponent from "../../components/DrawerBaseComponent";
+import RNComponent from "../../components/RNComponent";
 
 const launchscreenBg = require("../../assets/mib.jpg");
 const launchscreenLogo = require("../../assets/title.png");
@@ -17,7 +19,7 @@ interface IProps extends IReactNavigatingProps {
   onPressStart: ()=>void,
 }
 
-class Home extends React.Component<IProps,any> {
+class Home extends RNComponent<IProps,any> {
   render() {
     return (
       <Container style={{ flex: 1, marginTop: Platform.OS === 'android' ? 25 : 0 }}>

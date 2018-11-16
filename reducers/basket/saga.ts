@@ -39,7 +39,7 @@ function* getMyPickList(action:IAction) {
     if (err.response) {
       console.log(err.response.status);
       // yield put(redirectRoute('Home'));
-      yield put(NavigationActions.navigate({ routeName: 'Drawer'}));
+      yield put(NavigationActions.navigate({ routeName: 'Home'}));
     } else {
       console.error('axios error' + err.message);
     }

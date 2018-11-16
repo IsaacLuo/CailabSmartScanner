@@ -11,6 +11,7 @@ import { Dispatch } from 'redux'
 
 import styles from "./styles";
 import axios from 'axios';
+import RNComponent from '../../components/RNComponent';
 
 const launchscreenBg = require("../../assets/mib.jpg");
 const launchscreenLogo = require("../../assets/title.png");
@@ -23,7 +24,7 @@ interface IState {
   userBarcode: string,
 }
 
-class Home extends React.Component<IProps,IState> {
+class Home extends RNComponent<IProps,IState> {
   constructor(props:IProps) {
     super(props);
     this.state = {
@@ -74,6 +75,11 @@ class Home extends React.Component<IProps,IState> {
         </ImageBackground>
       </Container>
     );
+  }
+
+  protected onBackButtonPressAndroid = () => {
+    this.props.navigation.goBack();
+    return true;
   }
 
 }

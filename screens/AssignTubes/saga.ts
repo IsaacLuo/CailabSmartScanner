@@ -35,7 +35,8 @@ function* setCurrentPickList(action:IAction) {
     yield put({type:SET_LOADING_PARTS, data:false});
     if (err.response) {
       console.log(err.response.status);
-      yield put(redirectRoute('Drawer'));
+      // yield put(redirectRoute('Drawer'));
+      yield put(NavigationActions.navigate({ routeName: 'Home'}));
       // yield put(NavigationActions.navigate({ routeName: 'Drawer'}));
     } else {
       console.error('axios error' + err.message);
