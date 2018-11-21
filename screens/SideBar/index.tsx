@@ -25,11 +25,13 @@ import {
   Container,
   Left,
   Right,
-  Badge
+  Badge,
+  Button,
 } from "native-base";
 
 // page essentials
 import styles from "./style";
+import { LOGOUT } from '../../reducers/app/actions';
 
 const drawerCover = require("../../assets/sidbar-title.jpg");
 const drawerImage = require("../../assets/title.png");
@@ -46,10 +48,17 @@ const datas = [
     icon: "navigate",
     bg: "#BE6F50"
   },
+  {
+    name: "Test1",
+    routeName: "Test1",
+    icon: "navigate",
+    bg: "#BE6F50"
+  },
 ];
 
 interface IProps extends IReactNavigatingProps {
   username: string,
+  logout:()=>void,
 }
 
 class SideBar extends Component<IProps,any> {
@@ -90,6 +99,15 @@ class SideBar extends Component<IProps,any> {
               </ListItem>
               }
           />
+          <Button
+              style={{ backgroundColor: "#333333", alignSelf: "center", marginTop: 10}}
+              onPress={()=> {
+                this.props.logout();
+                this.props.navigation.navigate('Home');
+              }}
+            >
+              <Text>logout</Text>
+            </Button> 
         </Content>
       </Container>
   }
@@ -99,6 +117,7 @@ const mapStateToProps = (state:IStoreState) => ({
 });
 
 const mapDispatchToProps = (dispatch :Dispatch) => ({
+  logout: ()=>dispatch({type:LOGOUT}),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
 

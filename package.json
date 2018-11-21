@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^8.0.0",
+    "@smartractechnology/react-native-rfid-nfc": "^0.4.0",
     "@types/expo": "^30.0.0",
     "@types/expo__vector-icons": "^6.2.3",
     "@types/react": "^16.4.18",
@@ -25,6 +26,7 @@
     "native-base": "^2.8.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-nfc-manager": "^1.1.1",
     "react-navigation": "^2.18.2",
     "react-navigation-redux-helpers": "^2.0.8",
     "react-redux": "^5.1.0",

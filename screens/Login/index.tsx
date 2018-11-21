@@ -25,6 +25,8 @@ interface IState {
 }
 
 class Home extends RNComponent<IProps,IState> {
+  private inputRef:any = undefined;
+
   constructor(props:IProps) {
     super(props);
     this.state = {
@@ -45,6 +47,15 @@ class Home extends RNComponent<IProps,IState> {
 
 
   }
+  public componentDidMount() {
+    console.debug('mounted');
+    this.inputRef._root.focus();
+  }
+  public componentDidUpdate() {
+    console.debug('updated');
+   
+  }
+
   render() {
     return (
       <Container>
@@ -54,10 +65,24 @@ class Home extends RNComponent<IProps,IState> {
           <Form>
             <Item inlineLabel>
               <Label>User Barcode</Label>
-              <Input onChangeText={(userBarcode) => this.setState({userBarcode})}
+              <Input
+                onChangeText={(userBarcode) => this.setState({userBarcode})}
                 value={this.state.userBarcode}
                 autoFocus={true}
-                onSubmitEditing={()=>{this.props.submitUserBarcode(this.state.userBarcode)}}
+                ref = {(ref)=> {
+                  this.inputRef = ref}}
+                onSubmitEditing={()=>{
+                  this.props.submitUserBarcode(this.state.userBarcode);
+                  console.debug('submitEditing')
+                  this.inputRef._root.blur(); 
+                  this.setState({
+                    userBarcode:'',
+                  });
+                  // }
+                }}
+                onEndEditing = {
+                  ()=>{ this.inputRef._root.focus();}
+                }
                 />
             </Item>
           </Form>

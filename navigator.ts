@@ -20,6 +20,7 @@ import Home from './screens/Home'
 import AssignTubes from './screens/AssignTubes';
 import Login from './screens/Login';
 import SideBar from './screens/SideBar';
+import MultiInputTest from './screens/MultiInputTest';
 
 const Drawer = createDrawerNavigator(
   {
@@ -28,6 +29,7 @@ const Drawer = createDrawerNavigator(
     AssignTubes: {screen: AssignTubes},
     Login: {screen: Login},
     Dashboard: {screen: SideBar},
+    Test1: {screen:MultiInputTest},
   },
   {
     initialRouteName: "Home",

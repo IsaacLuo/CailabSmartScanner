@@ -570,6 +570,10 @@
     pouchdb-collections "^1.0.1"
     tiny-queue "^0.2.1"
 
+"@smartractechnology/react-native-rfid-nfc@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@smartractechnology/react-native-rfid-nfc/-/react-native-rfid-nfc-0.4.0.tgz#78c66f825c170e4a635d404e837b61f5c2220b3d"
+
 "@types/expo@^30.0.0":
   version "30.0.0"
   resolved "https://registry.yarnpkg.com/@types/expo/-/expo-30.0.0.tgz#fb19a1148b8d3136bf31cdc2ea09baa81b282a36"
@@ -4022,6 +4026,10 @@ react-native-keyboard-aware-scroll-view@0.5.0:
 react-native-maps@expo/react-native-maps#v0.22.1-exp.0:
   version "0.22.1"
   resolved "https://codeload.github.com/expo/react-native-maps/tar.gz/e6f98ff7272e5d0a7fe974a41f28593af2d77bb2"
+
+react-native-nfc-manager@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-nfc-manager/-/react-native-nfc-manager-1.1.1.tgz#25e7963df15d370cd5ab3cad6ce93aa506b5aa10"
 
 react-native-reanimated@1.0.0-alpha.10:
   version "1.0.0-alpha.10"

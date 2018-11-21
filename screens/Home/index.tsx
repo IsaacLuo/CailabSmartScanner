@@ -56,7 +56,7 @@ class Home extends React.Component<IProps,any> {
           >
             <H3 style={styles.text}>The Scanner for lims system</H3>
             <View style={{ marginTop: 8 }} />
-            <Text style={styles.version}>v0.1.1116 alpha</Text>
+            <Text style={styles.version}>v0.1.1121 alpha</Text>
             <View style={{ marginTop: 8 }} />
           </View>
           <View style={{ marginBottom: 80 }}>
