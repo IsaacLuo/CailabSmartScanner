@@ -31,7 +31,7 @@ function* submitUserBarcode(action:IAction) {
     }
     // set redux
   } catch (err) {
-    yield put({type:SET_USER, data:{username:'guest', token:'guest'}});
+    yield put({type:SET_USER, data:{username:'guest', token:''}});
     yield put({type:SET_LOGIN_MESSAGE, data:{message:'unable to login', err:err.message}});
   }
 }

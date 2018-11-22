@@ -25,14 +25,14 @@ import MultiInputTest from './screens/MultiInputTest';
 const Drawer = createDrawerNavigator(
   {
     // Home: { screen: AssignTubes },
-    Home: { screen: Home },
+    // Home: { screen: Home },
     AssignTubes: {screen: AssignTubes},
-    Login: {screen: Login},
+    // Login: {screen: Login},
     Dashboard: {screen: SideBar},
     Test1: {screen:MultiInputTest},
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Dashboard",
     contentOptions: {
       activeTintColor: "#e91e63"
     },
@@ -43,15 +43,14 @@ const Drawer = createDrawerNavigator(
 const AppNavigator = createStackNavigator(
   {
     Drawer: { screen: Drawer },
-    // Home: { screen: Home },
+    Home: { screen: Home },
     // AssignTubes: {screen: AssignTubes},
-    
     // Dashboard: {screen: SideBar},
-    // Login: {screen: Login},
+    Login: {screen: Login},
 
   },
   {
-    initialRouteName: "Drawer",
+    initialRouteName: "Home",
     headerMode: "none"
   }
 );

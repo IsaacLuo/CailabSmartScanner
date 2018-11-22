@@ -64,7 +64,8 @@ class Home extends React.Component<IProps,any> {
               style={{ backgroundColor: "#6FAF98", alignSelf: "center" }}
               onPress={()=> {
                 if (this.props.token) {
-                  this.props.navigation.openDrawer();
+                  // this.props.navigation.openDrawer();
+                  this.props.navigation.navigate('Drawer');
                 } else {
                   this.props.navigation.navigate('Login');
                 }

@@ -17,6 +17,7 @@ const launchscreenBg = require("../../assets/mib.jpg");
 const launchscreenLogo = require("../../assets/title.png");
 
 interface IProps {
+  loggedin: boolean,
   onPressStart: ()=>void,
   submitUserBarcode: (barcode:string)=>void,
 }
@@ -32,28 +33,12 @@ class Home extends RNComponent<IProps,IState> {
     this.state = {
       userBarcode: '',
     }
-
-    const testCall = async () => {
-    try {
-      console.log('getMyPickList')
-    const res = await axios.get(conf.backendServer+'/test/');
-    console.log(res.data);
-    } catch (err) {
-      console.log('err');
-      console.log(err);
-    }
-  };
-  testCall();
-
-
   }
   public componentDidMount() {
-    console.debug('mounted');
     this.inputRef._root.focus();
   }
-  public componentDidUpdate() {
-    console.debug('updated');
-   
+  public componentWillMount() {
+    this.inputRef._root.blur();
   }
 
   render() {
@@ -73,17 +58,23 @@ class Home extends RNComponent<IProps,IState> {
                   this.inputRef = ref}}
                 onSubmitEditing={()=>{
                   this.props.submitUserBarcode(this.state.userBarcode);
-                  console.debug('submitEditing')
-                  this.inputRef._root.blur(); 
+                  // console.debug('submitEditing')
+                  // this.inputRef._root.blur(); 
                   this.setState({
                     userBarcode:'',
                   });
+                  // this.inputRef._root.focus();
                   // }
                 }}
                 onEndEditing = {
-                  ()=>{ this.inputRef._root.focus();}
-                }
-                />
+                  (x:any)=>{
+                    // console.debug('onEndEditing', x, this.state.userBarcode, this.props.loggedin);
+                    if (!this.props.loggedin) {
+                      // console.debug('focus again');
+                      this.inputRef._root.focus();
+                    }
+                  }
+                }/>
             </Item>
           </Form>
           </View>
@@ -110,6 +101,7 @@ class Home extends RNComponent<IProps,IState> {
 }
 
 const mapStateToProps = (state:IStoreState) => ({
+  loggedin: state.app.token !== '',
 });
 
 const mapDispatchToProps = (dispatch :Dispatch) => ({
