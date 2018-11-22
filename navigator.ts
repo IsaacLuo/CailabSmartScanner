@@ -28,7 +28,12 @@ const Drawer = createDrawerNavigator(
     // Home: { screen: Home },
     AssignTubes: {screen: AssignTubes},
     // Login: {screen: Login},
-    Dashboard: {screen: SideBar},
+    Dashboard: {
+      screen: SideBar,
+      navigationOptions: () => ({
+        drawerLockMode: 'locked-closed'
+      })
+    },
     Test1: {screen:MultiInputTest},
   },
   {

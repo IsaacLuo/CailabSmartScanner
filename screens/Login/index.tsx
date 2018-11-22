@@ -35,10 +35,11 @@ class Home extends RNComponent<IProps,IState> {
     }
   }
   public componentDidMount() {
-    this.inputRef._root.focus();
+    // console.debug('mount will focus');
+    // this.inputRef._root.focus();
   }
-  public componentWillMount() {
-    this.inputRef._root.blur();
+  public componentWillUnmount() {
+    // this.inputRef._root.blur();
   }
 
   render() {
@@ -71,6 +72,7 @@ class Home extends RNComponent<IProps,IState> {
                     // console.debug('onEndEditing', x, this.state.userBarcode, this.props.loggedin);
                     if (!this.props.loggedin) {
                       // console.debug('focus again');
+                      console.debug('mount will focus');
                       this.inputRef._root.focus();
                     }
                   }

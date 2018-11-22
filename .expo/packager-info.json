@@ -1,9 +1,9 @@
 {
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": "https://5g-kuk.yishaluo.cailabsmartscanner.exp.direct",
-  "packagerNgrokUrl": "https://packager.5g-kuk.yishaluo.cailabsmartscanner.exp.direct",
-  "ngrokPid": 27532,
+  "packagerPort": 19001,
+  "packagerPid": 3832,
+  "expoServerNgrokUrl": "https://kx-n67.yishaluo.cailabsmartscanner.exp.direct",
+  "packagerNgrokUrl": "https://packager.kx-n67.yishaluo.cailabsmartscanner.exp.direct",
+  "ngrokPid": 6648,
   "devToolsPort": 19002,
   "expoServerPort": 19000
 }
