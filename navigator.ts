@@ -21,12 +21,17 @@ import AssignTubes from './screens/AssignTubes';
 import Login from './screens/Login';
 import SideBar from './screens/SideBar';
 import MultiInputTest from './screens/MultiInputTest';
+import WhereIsMyPart from './screens/WhereIsMyPart';
+import WhatIsInFreezer from './screens/WhatIsInFreezer';
+import PartDetail from './screens/PartDetail';
 
 const Drawer = createDrawerNavigator(
   {
     // Home: { screen: AssignTubes },
     // Home: { screen: Home },
     AssignTubes: {screen: AssignTubes},
+    WhereIsMyPart: {screen: WhereIsMyPart},
+    WhatIsInFreezer: {screen: WhatIsInFreezer},
     // Login: {screen: Login},
     Dashboard: {
       screen: SideBar,
@@ -52,6 +57,7 @@ const AppNavigator = createStackNavigator(
     // AssignTubes: {screen: AssignTubes},
     // Dashboard: {screen: SideBar},
     Login: {screen: Login},
+    PartDetail: {screen: PartDetail},
 
   },
   {

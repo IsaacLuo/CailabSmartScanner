@@ -1,11 +1,19 @@
 // types
-import { IStoreState, IReactNavigatingProps, IBasket, IPart } from '../../types';
+import {
+  IStoreState,
+  IReactNavigatingProps,
+  IBasket,
+  IPart,
+} from '../../types';
+
+// react
+import * as React from 'react';
+import {Keyboard} from 'react-native';
+// redux
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 
-import * as React from 'react';
-import { Component } from "react";
-import { Image, Platform, StyleSheet } from "react-native";
+// components,
 import {
   Container,
   Header,
@@ -27,20 +35,7 @@ import { GET_MY_PICKLISTS } from '../../reducers/basket/actions';
 import { SET_CURRENT_PICKLIST } from './actions';
 
 import style from './style'
-import RNComponent from '../../components/RNComponent';
 import DrawerBaseComponent from '../../components/DrawerBaseComponent';
-
-
-const drawerCover = require("../../assets/sidbar-title.jpg");
-const drawerImage = require("../../assets/title.png");
-const datas = [
-  {
-    name: "Assgin Tubes",
-    route: "/assignTubes",
-    icon: "navigate",
-    bg: "#BE6F50"
-  },
-];
 
 interface IProps extends IReactNavigatingProps {
   selectedBasket:any,
@@ -64,8 +59,14 @@ class AssignTubes extends DrawerBaseComponent<IProps,IState> {
     };
     this.props.dispatchGetMyBaskets();
   }
+  public componentDidMount() {
+    Keyboard.dismiss();
+  }
+  public componentDidUpdate(){
+    Keyboard.dismiss();
+  }
 
-  render() {
+  public render() {
     const pickerItems = this.props.pickLists.map(item => <Picker.Item
       label={item.name}
       value={item._id}
@@ -74,15 +75,22 @@ class AssignTubes extends DrawerBaseComponent<IProps,IState> {
 
     const partsList = this.props.parts.map((item:IPart) => 
     <Card key={item._id}>
-        <CardItem>
-          <Icon name="md-add" />
-          <Text>{item.personalName}</Text>
-          <Right>
-            <Icon name="ios-barcode" />
-          </Right>
-         </CardItem>
-       </Card>
+      <CardItem>
+        <Icon
+          name="md-add"
+          onPress={()=>{
+            console.debug(item.personalName);
+            this.props.navigation.navigate('PartDetail', {partId:item._id});
+          }}
+        />
+        <Text>{item.personalName}</Text>
+        <Right>
+          <Icon name="ios-barcode" />
+        </Right>
+        </CardItem>
+      </Card>
     )
+
     return(
     <Container>
       <Header style={style.header}>

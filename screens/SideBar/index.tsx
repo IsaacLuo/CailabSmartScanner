@@ -49,6 +49,18 @@ const datas = [
     bg: "#BE6F50"
   },
   {
+    name: "Where is My Part",
+    routeName: "WhereIsMyPart",
+    icon: "navigate",
+    bg: "#BE6F50"
+  },
+  {
+    name: "What is in Freezer",
+    routeName: "WhatIsInFreezer",
+    icon: "navigate",
+    bg: "#BE6F50"
+  },
+  {
     name: "Test1",
     routeName: "Test1",
     icon: "navigate",
