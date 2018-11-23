@@ -49,7 +49,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(sagaMiddleware, navMiddleware)));
 let persistor = persistStore(store);
-persistor.purge();
+// persistor.purge();
 
 sagaMiddleware.run(saga);
 
@@ -77,6 +77,7 @@ export default class App extends Component<IProps, IState> {
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
+      'Entypo': require('@expo/vector-icons/fonts/Entypo.ttf'),
     });
     this.setState({loading:false});
   }
