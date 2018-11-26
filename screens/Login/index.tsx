@@ -55,6 +55,8 @@ class Home extends RNComponent<IProps,IState> {
                 onChangeText={(userBarcode) => this.setState({userBarcode})}
                 value={this.state.userBarcode}
                 autoFocus={true}
+                blurOnSubmit={false}
+                autoCapitalize={'none'}
                 ref = {(ref)=> {
                   this.inputRef = ref}}
                 onSubmitEditing={()=>{

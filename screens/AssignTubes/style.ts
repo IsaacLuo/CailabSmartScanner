@@ -36,5 +36,25 @@ export default StyleSheet.create({
   },
   header: {
     paddingTop: Platform.OS === "android" ? statusBarHeight : undefined
+  },
+  imageContainer: {
+    flex: 1,
+    width: null,
+    height: null
+  },
+  card: {
+    backgroundColor: 'rgba(255,255,255,0.1)',
+  },
+  cardItem: {
+    backgroundColor: 'transparent',
+  },
+  barcodeContainer: {
+    marginLeft: 20,
+    width: '100%',
+  },
+  barcodeInput: {
+    backgroundColor:'#fff',
+    width: '100%',
+    
   }
 });

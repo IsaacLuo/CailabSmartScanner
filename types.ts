@@ -47,6 +47,7 @@ export interface IBasket {
 export interface IAssignTubesState {
   parts: IPart[],
   loadingParts: boolean,
+  focusedPartIndex: number,
 }
 
 export interface IPart {

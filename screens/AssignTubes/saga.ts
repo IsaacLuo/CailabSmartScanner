@@ -4,6 +4,8 @@ import {
   SET_CURRENT_PICKLIST,
   SET_PARTS,
   SET_LOADING_PARTS,
+  QUERY_APPEND_BARCODE_TO_PART,
+  APPEND_BARCODE_TO_PART,
  } from './actions';
 
 import {
@@ -41,11 +43,14 @@ function* setCurrentPickList(action:IAction) {
     } else {
       console.error('axios error' + err.message);
     }
-  }
+  }  
+}
 
-  
+function* queryAppendBarcodeToPart(action:IAction) {
+  yield put({type:APPEND_BARCODE_TO_PART, data:action.data});
 }
 
 export default function* watchAssignTubes() {
   yield takeLatest(SET_CURRENT_PICKLIST, setCurrentPickList);
+  yield takeEvery(QUERY_APPEND_BARCODE_TO_PART, queryAppendBarcodeToPart);
 }
