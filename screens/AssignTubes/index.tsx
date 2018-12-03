@@ -8,7 +8,7 @@ import {
 
 // react
 import * as React from "react";
-import { Keyboard, ImageBackground, KeyboardAvoidingView } from "react-native";
+import { Keyboard, ImageBackground, KeyboardAvoidingView, TouchableOpacity } from "react-native";
 // redux
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
@@ -39,7 +39,8 @@ import { GET_MY_PICKLISTS } from "../../reducers/basket/actions";
 import {
   SET_CURRENT_PICKLIST,
   APPEND_BARCODE_TO_PART,
-  QUERY_APPEND_BARCODE_TO_PART
+  QUERY_APPEND_BARCODE_TO_PART,
+  SET_FOCUSED_PART_INDEX,
 } from "./actions";
 
 import style from "./style";
@@ -57,6 +58,7 @@ interface IProps extends IReactNavigatingProps {
   dispatchGetMyBaskets: () => void;
   dispatchSetCurrentBasket: (id: string) => void;
   dispatchAssignBarcodeToPart: (partId: string, barcode: string) => void;
+  dispatchSetFocusedPartIndex:(index:number)=>void,
 }
 interface IState {
   selected: string;
@@ -65,7 +67,7 @@ interface IState {
 const bgPicture = require("../../assets/lab.jpg");
 
 class AssignTubes extends DrawerBaseComponent<IProps, IState> {
-  private inputRef:any = undefined;
+  private inputRef: any = undefined;
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -77,7 +79,7 @@ class AssignTubes extends DrawerBaseComponent<IProps, IState> {
     // Keyboard.dismiss();
   }
   public componentDidUpdate() {
-    if(this.inputRef) {
+    if (this.inputRef) {
       // console.debug(this.inputRef._root);
       this.inputRef._root.focus();
       console.debug('set focus');
@@ -93,6 +95,10 @@ class AssignTubes extends DrawerBaseComponent<IProps, IState> {
     const partsList = this.props.parts.map((item: IPart, index: number) => (
       <List key={item._id} style={style.card}>
         <ListItem style={style.cardItem}>
+        <TouchableOpacity
+            style={{width:'100%', display:'flex', flexDirection:'row', alignItems:'center'}}
+            onPress={()=>this.props.dispatchSetFocusedPartIndex(index)}
+          >
           <Icon
             name="md-add"
             onPress={() => {
@@ -104,9 +110,10 @@ class AssignTubes extends DrawerBaseComponent<IProps, IState> {
             }}
           />
           <Text>{item.personalName}</Text>
+
           <View style={style.barcodeContainer}>
             {
-              item.barcodes && item.barcodes.map(v=> <Text key={v}>{v}</Text>)
+              item.barcodes && item.barcodes.map(v => <Text key={v}>{v}</Text>)
             }
             {this.props.focusedPartIndex === index && (
               <Input
@@ -115,7 +122,7 @@ class AssignTubes extends DrawerBaseComponent<IProps, IState> {
                 autoCapitalize="none"
                 // onChangeText={(userBarcode) => this.setState({userBarcode})}
                 // value={this.state.userBarcode}
-                ref = {(ref)=> {this.inputRef = ref}}
+                ref={(ref) => { this.inputRef = ref }}
                 onSubmitEditing={e => {
                   const barcode = e.nativeEvent.text;
                   console.debug("barcode=", barcode);
@@ -124,6 +131,7 @@ class AssignTubes extends DrawerBaseComponent<IProps, IState> {
               />
             )}
           </View>
+          </TouchableOpacity>
         </ListItem>
       </List>
     ));
@@ -131,52 +139,52 @@ class AssignTubes extends DrawerBaseComponent<IProps, IState> {
     return (
       <Container>
         <ImageBackground source={bgPicture} style={style.imageContainer}>
-        <KeyboardAvoidingView behavior="padding" style={{flex:1}}>
-          <Header style={style.header}>
-            <Left>
-              <Button transparent onPress={this.props.navigation.openDrawer}>
-                <Icon name="ios-menu" />
-              </Button>
-            </Left>
-            <Body>
-              <Title>Header</Title>
-            </Body>
-            <Right />
-          </Header>
-          {this.props.loadingPicklists ? (
-            <Content>
-              <Spinner />
-            </Content>
-          ) : (
-            <Content>
-              
-              <Picker
-                note={false}
-                mode="dropdown"
-                style={{ width: "100%" }}
-                selectedValue={this.state.selected}
-                onValueChange={this.onValueChange.bind(this)}
-              >
-                {/* <KeyboardAwareScrollView
+          <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+            <Header style={style.header}>
+              <Left>
+                <Button transparent onPress={this.props.navigation.openDrawer}>
+                  <Icon name="ios-menu" />
+                </Button>
+              </Left>
+              <Body>
+                <Title>Header</Title>
+              </Body>
+              <Right />
+            </Header>
+            {this.props.loadingPicklists ? (
+              <Content>
+                <Spinner />
+              </Content>
+            ) : (
+                <Content>
+
+                  <Picker
+                    note={false}
+                    mode="dropdown"
+                    style={{ width: "100%" }}
+                    selectedValue={this.state.selected}
+                    onValueChange={this.onValueChange.bind(this)}
+                  >
+                    {/* <KeyboardAwareScrollView
                   style={{ backgroundColor: '#4c69a5' }}
                   resetScrollToCoords={{ x: 0, y: 0 }}
                 // contentContainerStyle={styles.container}
                   scrollEnabled={false}
                 > */}
 
-                  {pickerItems}
-                {/* </KeyboardAwareScrollView> */}
-              </Picker>
-              {this.props.loadingParts ? <Spinner /> : partsList}
-              {!this.props.loadingParts && partsList.length === 0 && (
-                <Text>basket is empty</Text>
+                    {pickerItems}
+                    {/* </KeyboardAwareScrollView> */}
+                  </Picker>
+                  {this.props.loadingParts ? <Spinner /> : partsList}
+                  {!this.props.loadingParts && partsList.length === 0 && (
+                    <Text>basket is empty</Text>
+                  )}
+                </Content>
               )}
-            </Content>
-          )}
           </KeyboardAvoidingView>
         </ImageBackground>
       </Container>
-     
+
     );
   }
 
@@ -203,13 +211,17 @@ const mapStateToProps = (state: IStoreState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   dispatchGetMyBaskets: () => dispatch({ type: GET_MY_PICKLISTS }),
+
   dispatchSetCurrentBasket: (id: string) =>
     dispatch({ type: SET_CURRENT_PICKLIST, data: id }),
+
   dispatchAssignBarcodeToPart: (partId: string, barcode: string) =>
     dispatch({
       type: QUERY_APPEND_BARCODE_TO_PART,
       data: { partId, barcode }
-    })
+    }),
+
+  dispatchSetFocusedPartIndex: (index: number) => dispatch({ type: SET_FOCUSED_PART_INDEX, data: index }),
 });
 
 export default connect(

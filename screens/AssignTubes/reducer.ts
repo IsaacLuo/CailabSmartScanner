@@ -3,6 +3,7 @@ import {
   SET_PARTS,
   SET_LOADING_PARTS,
   APPEND_BARCODE_TO_PART,
+  SET_FOCUSED_PART_INDEX,
 } from "./actions";
 
 
@@ -38,8 +39,12 @@ export default function basketReducer (state:IAssignTubesState = INITIAL_STATE, 
           } else {
             return v;
           }
-        }),
-        
+        }),    
+      }
+    case SET_FOCUSED_PART_INDEX:
+      return {
+        ...state,
+        focusedPartIndex: action.data,
       }
     default:
       return state
