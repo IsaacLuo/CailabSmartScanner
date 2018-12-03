@@ -4,15 +4,19 @@ import { IAction, IStoreState } from '../../types';
 import conf from '../../config'
 import {
   SET_USER,
-  SET_LOGIN_MESSAGE,
   SUBMIT_USER_BARCODE,
   VERIFY_CURRENT_USER,
 } from './actions';
+
+import {
+  SET_MESSAGE as SET_LOGIN_MESSAGE
+} from '../../screens/Login/actions';
 
 import { NavigationActions, StackActions } from 'react-navigation'
 
 import axios from 'axios'
 import { getAuthHeader } from '../../helpers';
+import { Toast } from 'native-base';
 
 const redirectRoute = (routeName:string) => StackActions.reset({
     index: 0,
@@ -33,6 +37,8 @@ function* submitUserBarcode(action:IAction) {
   } catch (err) {
     yield put({type:SET_USER, data:{username:'guest', token:''}});
     yield put({type:SET_LOGIN_MESSAGE, data:{message:'unable to login', err:err.message}});
+    yield call(delay, 3000);
+    yield put({type:SET_LOGIN_MESSAGE, data:{message:''}});
   }
 }
 

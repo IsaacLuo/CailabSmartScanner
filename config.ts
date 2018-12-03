@@ -1,3 +1,3 @@
 export default {
-  serverURL:"http://xps.cailab.org:8000",
+  serverURL:"http://192.168.1.6:8000",
 }
