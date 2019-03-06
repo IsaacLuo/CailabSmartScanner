@@ -6,6 +6,7 @@ import {
   SET_LOADING_PARTS,
   QUERY_APPEND_BARCODE_TO_PART,
   APPEND_BARCODE_TO_PART,
+  GET_PARTS_W_CONTAINER_IN_PICKLIST,
  } from './actions';
 
 import {
@@ -50,7 +51,32 @@ function* queryAppendBarcodeToPart(action:IAction) {
   yield put({type:APPEND_BARCODE_TO_PART, data:action.data});
 }
 
+function* getPartsWithContainerInPicklist(action:IAction) {
+  try {
+    const pickListId = action.data.data;
+    // console.warn(pickListId, 'pickListId');
+    const token = yield select((store:IStoreState) => store.app.token);
+    
+    const res2 = yield call(axios.get, conf.serverURL+`/api/pickList/${pickListId}/partBarcodes`, getAuthHeader(token));
+    console.log('res2data', res2.data);
+    yield put({type:SET_PARTS, data:res2.data});
+    yield put({type:SET_LOADING_PARTS, data:false});
+
+  } catch (err) {
+    yield put({type:SET_LOADING_PARTS, data:false});
+    if (err.response) {
+      console.log(err.response.status);
+      // yield put(redirectRoute('Drawer'));
+      yield put(NavigationActions.navigate({ routeName: 'Home'}));
+      // yield put(NavigationActions.navigate({ routeName: 'Drawer'}));
+    } else {
+      console.error('axios error' + err.message);
+    }
+  }
+}
+
 export default function* watchAssignTubes() {
+  yield takeLatest(GET_PARTS_W_CONTAINER_IN_PICKLIST, getPartsWithContainerInPicklist)
   yield takeLatest(SET_CURRENT_PICKLIST, setCurrentPickList);
   yield takeEvery(QUERY_APPEND_BARCODE_TO_PART, queryAppendBarcodeToPart);
 }

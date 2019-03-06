@@ -3,7 +3,8 @@ import {
   IStoreState,
   IReactNavigatingProps,
   IBasket,
-  IPart
+  IPart,
+  IPartForAssignTubes
 } from "../../types";
 
 // react
@@ -35,12 +36,14 @@ import {
   Input,
   View
 } from "native-base";
-import { GET_MY_PICKLISTS } from "../../reducers/basket/actions";
+import { GET_MY_PICKLISTS, FILL_PARTS_INTO_PICKLIST, GET_PICKLIST } from "../../reducers/basket/actions";
 import {
   SET_CURRENT_PICKLIST,
   APPEND_BARCODE_TO_PART,
   QUERY_APPEND_BARCODE_TO_PART,
   SET_FOCUSED_PART_INDEX,
+  SET_PARTS,
+  GET_PARTS_W_CONTAINER_IN_PICKLIST,
 } from "./actions";
 
 import style from "./style";
@@ -53,7 +56,7 @@ interface IProps extends IReactNavigatingProps {
   defaultPickListId: string;
   loadingPicklists: boolean;
   loadingParts: boolean;
-  parts: IPart[];
+  parts: IPartForAssignTubes[];
   focusedPartIndex: number;
   dispatchGetMyBaskets: () => void;
   dispatchSetCurrentBasket: (id: string) => void;
@@ -92,7 +95,7 @@ class AssignTubes extends DrawerBaseComponent<IProps, IState> {
       <Picker.Item label={item.name} value={item._id} key={item._id} />
     ));
 
-    const partsList = this.props.parts.map((item: IPart, index: number) => (
+    const partsList = this.props.parts.map((item: IPartForAssignTubes, index: number) => (
       <List key={item._id} style={style.card}>
         <ListItem style={style.cardItem}>
         <TouchableOpacity
@@ -112,6 +115,9 @@ class AssignTubes extends DrawerBaseComponent<IProps, IState> {
           <Text>{item.personalName}</Text>
 
           <View style={style.barcodeContainer}>
+            {
+              item.assignedBarcodes && item.assignedBarcodes.map(v => <Text key={v}>{v}</Text>)
+            }
             {
               item.barcodes && item.barcodes.map(v => <Text key={v}>{v}</Text>)
             }
@@ -210,7 +216,14 @@ const mapStateToProps = (state: IStoreState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  dispatchGetMyBaskets: () => dispatch({ type: GET_MY_PICKLISTS }),
+  dispatchGetMyBaskets: () => dispatch({
+    type: GET_MY_PICKLISTS, 
+    data:{
+      next:[
+        GET_PARTS_W_CONTAINER_IN_PICKLIST,
+      ]
+    }
+  }),
 
   dispatchSetCurrentBasket: (id: string) =>
     dispatch({ type: SET_CURRENT_PICKLIST, data: id }),

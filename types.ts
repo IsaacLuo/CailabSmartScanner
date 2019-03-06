@@ -47,7 +47,7 @@ export interface IBasket {
 }
 
 export interface IAssignTubesState {
-  parts: IPart[],
+  parts: IPartForAssignTubes[],
   loadingParts: boolean,
   focusedPartIndex: number,
 }
@@ -61,8 +61,11 @@ export interface IPart {
   _id: string,
   labName: string,
   personalName: string,
-  barcodes?: string[],
   containers: IContainer[],
+}
+export interface IPartForAssignTubes extends IPart {
+  assignedBarcodes?: string[],
+  barcodes?: string[],
 }
 
 export interface IPartDetail {

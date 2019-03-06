@@ -23,7 +23,13 @@ export default function basketReducer (state:IAssignTubesState = INITIAL_STATE, 
     case SET_PARTS:
       return {
         ...state,
-        parts: action.data.map((v:any)=>({...v, barcodes:[]})),
+        parts: action.data.parts.map((v:any)=>({
+            ...v,
+            assignedBarcodes: (v.containers
+              ? v.containers.map((vv:any)=>vv.barcode)
+              : []),
+            barcodes: [],
+          })),
         loadingParts: false,
         focusedPartIndex: 0,
       }
