@@ -1,4 +1,4 @@
-import { IAssignTubesState, IAction } from "../../types";
+import { IPartLocationState, IAction } from "../../types";
 import {
   SET_PARTS,
   SET_LOADING_PARTS,
@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   loadingParts: true,
 };
 
-export default function basketReducer (state:IAssignTubesState = INITIAL_STATE, action:IAction):IAssignTubesState {
+export default function partLocationReducer (state:IPartLocationState = INITIAL_STATE, action:IAction):IPartLocationState {
   switch (action.type) {
     case SET_LOADING_PARTS:
       return {
@@ -20,7 +20,7 @@ export default function basketReducer (state:IAssignTubesState = INITIAL_STATE, 
     case SET_PARTS:
       return {
         ...state,
-        parts: action.data.map((v:any)=>({...v, barcodes:[]})),
+        parts: action.data,
         loadingParts: false,
       }
     default:

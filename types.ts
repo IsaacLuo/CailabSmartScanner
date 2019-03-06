@@ -18,6 +18,7 @@ export interface IStoreState {
   nav: any,
   basket: IBasketState,
   assignTubes: IAssignTubesState,
+  partLocation: IPartLocationState,
   partDetail: IPartDetailState,
 }
 
@@ -50,11 +51,17 @@ export interface IAssignTubesState {
   focusedPartIndex: number,
 }
 
+export interface IPartLocationState {
+  parts: IPart[],
+  loadingParts: boolean,
+}
+
 export interface IPart {
   _id: string,
   labName: string,
   personalName: string,
   barcodes?: string[],
+  containers: IContainer[],
 }
 
 export interface IPartDetail {
@@ -110,4 +117,26 @@ export interface IPartDetail {
 export interface IPartDetailState {
   loading: boolean,
   partDetail: any,
+}
+
+export interface IContainer {
+  _id: string,
+  ctype: string,
+  assignedAt: string,
+  barcode: string,
+  wellName: string,
+  currentStatus: string,
+  parentContainer: {
+    _id: string,
+    ctype: string,
+    barcode: string,
+    currentStatus: string,
+    location: ILocation;
+  }
+  location: ILocation;
+}
+
+export interface ILocation {
+  barcode: string,
+  description: string,
 }

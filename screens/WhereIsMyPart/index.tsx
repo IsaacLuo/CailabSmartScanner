@@ -1,5 +1,5 @@
 // types
-import { IStoreState, IReactNavigatingProps, IBasket, IPart } from '../../types';
+import { IStoreState, IReactNavigatingProps, IBasket, IPart, IContainer } from '../../types';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 
@@ -22,9 +22,11 @@ import {
   Form,
   Picker,
   Spinner,
+  View,
+  Item,
 } from "native-base";
-import { GET_MY_PICKLISTS } from '../../reducers/basket/actions';
-import { SET_CURRENT_PICKLIST } from './actions';
+// import { GET_MY_PICKLISTS } from '../../reducers/basket/actions';
+import { SET_CURRENT_PICKLIST, GET_MY_PICKLISTS } from './actions';
 
 import style from './style'
 import RNComponent from '../../components/RNComponent';
@@ -71,18 +73,65 @@ class AssignTubes extends DrawerBaseComponent<IProps,IState> {
       value={item._id}
       key={item._id}
     />)
-
-    const partsList = this.props.parts.map((item:IPart) => 
-    <Card key={item._id}>
-        <CardItem>
+    console.log('rendering parts', this.props.parts);
+    const partsList = this.props.parts.map((part:IPart) => 
+    <Card key={part._id}>
+      <CardItem header>
+        <Left>
           <Icon name="md-add" />
-          <Text>{item.personalName}</Text>
-          <Right>
-            <Icon name="ios-barcode" />
-          </Right>
-         </CardItem>
-       </Card>
+        </Left>
+        <Body>
+          <Text>{part.personalName}</Text>
+        </Body>
+        <Right>
+          <Icon name="ios-barcode" />
+        </Right>
+      </CardItem>
+      <CardItem>
+        <Body>
+          {part.containers 
+          ? part.containers.map((container:IContainer)=>
+            <View key={container._id} style={{width:'100%', marginBottom:20}}>
+              <Item>
+                <Icon type="Entypo" name="triangle-right" />
+                <Text>
+                  {container.barcode}
+                </Text>
+              </Item>
+              { container.parentContainer? 
+                <Item>
+                  <Text>
+                      rack:{container.parentContainer.barcode} well:{container.wellName}
+                  </Text>
+                </Item>
+                : undefined
+              }
+
+              { container.currentStatus? 
+                <Item>
+                  <Text>
+                      status: {container.currentStatus}
+                  </Text>
+                </Item>
+                : undefined
+              }
+              <Item>
+                <Text>
+                {
+                  container.location
+                  ? `location: ${container.location.barcode}:${container.location.description}`
+                  : 'unknown location'
+                }
+                </Text>
+              </Item>
+            </View>
+          )
+          :<Text>no containers</Text>}
+        </Body>
+        </CardItem>
+      </Card>
     )
+
     return(
     <Container>
       <Header style={style.header}>
@@ -142,7 +191,7 @@ const mapStateToProps = (state:IStoreState) => ({
   defaultPickListId: state.basket.defaultPickListId,
   loadingPicklists: state.basket.loadingGetMyPicklists,
   loadingParts: state.assignTubes.loadingParts,
-  parts: state.assignTubes.parts,
+  parts: state.partLocation.parts,
 });
 
 const mapDispatchToProps = (dispatch :Dispatch) => ({

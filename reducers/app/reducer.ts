@@ -15,7 +15,7 @@ const INITIAL_STATE = {
 };
 
 const appReducer = (state:IAppState = INITIAL_STATE, action:IAction):IAppState =>  {
-  console.debug('Action = ', action.type);
+  console.debug('Action = ', action.type, 'data = ', action.data);
   switch (action.type) {
     case SET_MESSAGE:
       return {

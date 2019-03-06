@@ -4,6 +4,7 @@ import appSaga from './reducers/app/saga'
 import basketSaga from './reducers/basket/saga'
 import assignTubes from './screens/AssignTubes/saga'
 import partDetailSaga from './screens/PartDetail/saga'
+import whreIsMyPartSaga from './screens/WhereIsMyPart/saga'
 
 export default function* rootSaga() {
   yield all([
@@ -11,5 +12,6 @@ export default function* rootSaga() {
     fork(basketSaga),
     fork(assignTubes),
     fork(partDetailSaga),
+    fork(whreIsMyPartSaga),
   ]);
 }

@@ -35,11 +35,12 @@ import {
   Input,
   View
 } from "native-base";
-import { GET_MY_PICKLISTS } from "../../reducers/basket/actions";
+import { GET_MY_PICKLISTS, GET_PICKLIST } from "../../reducers/basket/actions";
 import {
   SET_CURRENT_PICKLIST,
   APPEND_BARCODE_TO_PART,
-  QUERY_APPEND_BARCODE_TO_PART
+  QUERY_APPEND_BARCODE_TO_PART,
+  SET_PARTS
 } from "./actions";
 
 import style from "./style";
@@ -202,7 +203,12 @@ const mapStateToProps = (state: IStoreState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  dispatchGetMyBaskets: () => dispatch({ type: GET_MY_PICKLISTS }),
+  dispatchGetMyBaskets: () => dispatch({
+      type: GET_MY_PICKLISTS,
+      data: {
+        next: [GET_PICKLIST, SET_PARTS],
+      }
+    }),
   dispatchSetCurrentBasket: (id: string) =>
     dispatch({ type: SET_CURRENT_PICKLIST, data: id }),
   dispatchAssignBarcodeToPart: (partId: string, barcode: string) =>
