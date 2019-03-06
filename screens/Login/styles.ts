@@ -33,5 +33,18 @@ export default {
     height: 50,
     bottom: 6,
     marginTop: 5
+  },
+  errorMessageContainer:{
+    height: 40,
+    display: 'flex',
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    backgroundColor: 'rgba(255,0,0,0.8)',
+    color:'black',
+    flex:1,
+    textAlign:'center',
   }
 };

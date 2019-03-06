@@ -14,6 +14,7 @@ export interface IAppState {
 
 export interface IStoreState {
   app: IAppState,
+  login: ILoginState,
   route: IRouteState,
   nav: any,
   basket: IBasketState,
@@ -117,6 +118,10 @@ export interface IPartDetail {
 export interface IPartDetailState {
   loading: boolean,
   partDetail: any,
+}
+
+export interface ILoginState {
+  message: string,
 }
 
 export interface IContainer {

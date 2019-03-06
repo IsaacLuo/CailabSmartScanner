@@ -18,6 +18,7 @@ const launchscreenLogo = require("../../assets/title.png");
 
 interface IProps {
   loggedin: boolean,
+  message:string,
   onPressStart: ()=>void,
   submitUserBarcode: (barcode:string)=>void,
 }
@@ -78,11 +79,20 @@ class Home extends RNComponent<IProps,IState> {
                       this.inputRef._root.focus();
                     }
                   }
-                }/>
+              }/>
             </Item>
           </Form>
           </View>
+          <View style={styles.errorMessageContainer}>
+            {
+              this.props.message ?
+              <Text style={styles.errorText}>{this.props.message}</Text>
+              :
+              <Text></Text>
+            }
+          </View>
           <View style={{ marginBottom: 80 }}>
+            
             <Button
               style={{ backgroundColor: "#999999", alignSelf: "center" }}
               onPress={()=> {
@@ -106,6 +116,7 @@ class Home extends RNComponent<IProps,IState> {
 
 const mapStateToProps = (state:IStoreState) => ({
   loggedin: state.app.token !== '',
+  message: state.login.message,
 });
 
 const mapDispatchToProps = (dispatch :Dispatch) => ({

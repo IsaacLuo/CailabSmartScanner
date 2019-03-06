@@ -55,6 +55,6 @@ export default StyleSheet.create({
   barcodeInput: {
     backgroundColor:'#fff',
     width: '100%',
-    
+    height: 15,
   }
 });
